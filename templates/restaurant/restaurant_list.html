@@ -1,0 +1,39 @@
+{% extends "restaurant/base.html" %}
+{% load static %} 
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+  </head>
+  <body>
+    {% block content %}
+
+    <h1>Restaurants List</h1>
+
+    <ul>
+      {% for restaurant in restaurants %}
+      <li>{{ restaurant.name }} located at  {{ restaurant.location }}</li>
+      {% endfor %}
+    </ul>
+    <br/>
+    <h1>Create a Restaurant</h1>
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form }}
+
+        <button type="submit">Save</button>
+
+    </form>
+
+
+    {% endblock content %}
+
+    <script src="" async defer></script>
+  </body>
+</html>

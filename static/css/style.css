@@ -1,0 +1,95 @@
+/* Reset default browser styles */
+html, body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Navbar styling */
+  .navbar {
+    background-color: #e63525;
+    color: #fff;
+    padding: 10px 0;
+  }
+  
+  .navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navbar-brand h1 {
+    margin: 0;
+    color: #fff;
+  }
+  
+  .navbar-menu .navbar-item {
+    margin-left: 10px;
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  /* Hero section styling */
+  .hero {
+    position: relative;
+    background-color: #fff;
+    overflow: hidden;
+  }
+  
+  .hero .hero-image img {
+    width: 100%;
+  }
+  
+  .hero .hero-body {
+    padding: 100px 0;
+    text-align: center;
+  }
+  
+  .hero .title {
+    color: #e63525;
+  }
+  
+  /* Search bar styling */
+  .search-bar {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  
+  .search-bar input {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #e63525;
+    border-radius: 5px;
+  }
+  
+  .search-bar button {
+    background-color: #e63525;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  /* Restaurants section styling */
+  .restaurants-section {
+    padding: 100px 0;
+    background-color: #f5f5f5;
+  }
+  
+  /* Footer styling */
+  .footer {
+    background-color: #d6dbdb;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+  }
+  
+  .footer .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Additional styling can be added below */
