@@ -1,5 +1,10 @@
-from django.contrib.auth.models import AbstractUser
+
 from django.db import models
+
+from watson import search as watson
+from datetime import datetime
+from authentication.models import User
+from django.apps import apps
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -18,11 +23,56 @@ class Restaurant(models.Model):
         "MenuCategory", related_name='restaurants')
     menus = models.ManyToManyField('Menu', related_name='menu_restaurants')
 
+    search_fields = ['name', 'location', 'cuisines', 'menus', 'category']
+
     def __str__(self):
         return f"{self.name}"
 
+    # if the restaurant is actually open or not
+
+    def is_open(self):
+        now = datetime.now().time()
+        current_weekday = datetime.now().weekday()
+
+        opening_hours = self.opening_hours.filter(
+            weekday=current_weekday).first()
+
+        if opening_hours and opening_hours.open_time <= now <= opening_hours.close_time:
+            return True
+
+        return False
+
+
+# to perform advanced search of restaurant using django-watson
+watson.register(Restaurant)
+
+
+# OpeningHour Model
+
+class OpeningHour(models.Model):
+    WEEKDAY_CHOICES = [
+        (1, 'Monday'),
+        (2, 'Tuesday'),
+        (3, 'Wednesday'),
+        (4, 'Thursday'),
+        (5, 'Friday'),
+        (6, 'Saturday'),
+        (7, 'Sunday'),
+    ]
+
+    restaurant = models.ForeignKey(
+        Restaurant, related_name='opening_hours', on_delete=models.CASCADE)  # not here
+    weekday = models.IntegerField(choices=WEEKDAY_CHOICES)
+    open_time = models.TimeField(null=True, blank=True)
+    close_time = models.TimeField(null=True, blank=True)
+
+    # r.opening_hours.all()
+
+    def __str__(self):
+        return f"{self.restaurant} - {self.get_weekday_display()}"
 
 # Cuisine Model
+
 
 class Cuisine(models.Model):
     name = models.CharField(max_length=255)
@@ -75,7 +125,7 @@ class RestaurantFood():
 
 class Menu(models.Model):
     name = models.CharField(max_length=255)
-    
+
     foods = models.ManyToManyField(Food, related_name='menus')
     categories = models.ManyToManyField('MenuCategory', related_name='menus')
 
@@ -114,16 +164,45 @@ class Category(models.Model):
         return f"{self.name}"
 
 
+
+class Admin(User):
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='admin_profile')
+    address = models.CharField(max_length=255, blank=True, null=True)
+
+
+    def __str__(self):
+        return f"{self.user.username}"
+    
+    
+class RestaurantOwner(User):
+    restaurants = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='owner')
+    
+    def __str__(self):
+        return f"{self.username}"
+
 # Client Model
-
-
 class Client(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='client_profile')
     address = models.CharField(max_length=255, blank=True, null=True)
     orders = models.ManyToManyField('Order', related_name='client_orders')
 
     def __str__(self):
         return f"{self.user.username}"
+    
+    
+# define the user type 
+class UserType(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    type_choices = [
+        ('admin', 'Admin'),
+        ('owner', 'Restaurant Owner'),
+        ('user', 'User')
+    ]
+    user_type = models.CharField(max_length=10, choices=type_choices)
+
+
 
 
 # Order Model

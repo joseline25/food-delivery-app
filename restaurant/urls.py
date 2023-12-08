@@ -12,9 +12,12 @@ urlpatterns = [
     path('base/', views.base, name='base'),
     path('base_location_restaurant/<int:pk>/',
          views.base_location_restaurant, name='base_location_restaurant'),
+    path('search/', views.search_restaurants, name='search_restaurants'),
+
 
     # Restaurant CRUD
     path('', views.restaurant_list, name='restaurant_list'),
+    path('restaurant_details/<int:pk>/', views.restaurant_details, name='restaurant_details'),
     path('restaurant_update/<int:pk>/',
          views.restaurant_update, name="restaurant_update"),
     path('restaurant_delete/<int:pk>/',
