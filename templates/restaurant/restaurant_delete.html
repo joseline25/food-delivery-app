@@ -1,0 +1,16 @@
+{% extends "restaurant/base.html" %}
+
+<form
+  action="{% url 'restaurant:restaurant_delete' restaurant.pk %}"
+  method="POST"
+>
+  {% csrf_token %}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <i class="mdi mdi-check-all me-2"></i>
+    <a href="{% url 'restaurant:restaurant_list' %}">Cancel? </a>
+  </div>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <i class="mdi mdi-block-helper me-2"></i>
+    <input type="submit" value="Delete!" />
+  </div>
+</form>

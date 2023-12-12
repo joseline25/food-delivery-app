@@ -1,0 +1,47 @@
+{% extends "restaurant/base.html" %} {% block content %} {% if
+page_obj.has_other_pages %}
+<div class="pagination">
+  {% if page_obj.has_previous %}
+  <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+  {% endif %}
+
+  <span class="current-page">{{ page_obj.number }}</span>
+
+  {% if page_obj.has_next %}
+  <a href="?page={{ page_obj.next_page_number }}">Next</a>
+  {% endif %}
+</div>
+{% endif %} {% if page_obj %}
+<h2>Found Restaurants:</h2>
+<ul>
+  {% for restaurant in page_obj %}
+  <li>
+    <h3>{{ restaurant.name }}</h3>
+    {% if restaurant.is_open %}
+    <p>Status: Open</p>
+    {% else %}
+    <p>Status: Closed</p>
+    {% endif %}
+    <p>Location: {{ restaurant.location.name }}</p>
+    <p>
+      Cuisine: {% for cuisine in restaurant.cuisines.all %} {{ cuisine.name }}
+      {% endfor %}
+    </p>
+    <p>
+      <a href="{% url 'restaurant:restaurant_details' restaurant.pk %}"
+        >View Details</a
+      >
+    </p>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No restaurants found.</p>
+{% endif %} {% comment %} {% for restaurant in restaurants %}
+<!-- Display the restaurant details here -->
+<h2>{{ restaurant.name }}</h2>
+<p>{{ restaurant.location }}</p>
+<!-- Add more fields as needed -->
+{% empty %}
+<p>No restaurants found.</p>
+{% endfor %} {% endcomment %} {% endblock content %}

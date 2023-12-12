@@ -1,11 +1,9 @@
-
 from django.db import models
-
 from watson import search as watson
 from datetime import datetime
-from authentication.models import User
 from django.apps import apps
 from django.contrib.auth.models import User
+from food.models import Food
 
 # Create your models here.
 
@@ -94,25 +92,6 @@ class Location(models.Model):
         return f"{self.name}"
 
 
-# Food Model
-
-class Food(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.TextField()
-    price = models.DecimalField(max_digits=6, decimal_places=2)
-    ingredients = models.ManyToManyField(
-        'Ingredient',  through='FoodIgredient')
-    categories = models.ManyToManyField(
-        'Category', related_name='category_foods')
-
-    def __str__(self):
-        return f"{self.name}"
-
-
-class FoodIgredient(models.Model):
-    food = models.ForeignKey(Food, on_delete=models.CASCADE)
-    ingredient = models.ForeignKey('Ingredient', on_delete=models.CASCADE)
-    quantity = models.DecimalField(max_digits=7, decimal_places=3)
 
 
 class RestaurantFood():
@@ -145,23 +124,8 @@ class MenuCategory(models.Model):
         return f"{self.name}"
 
 
-# Ingredient Model
-
-class Ingredient(models.Model):
-    name = models.CharField(max_length=255)
-    season = models.CharField(max_length=255, blank=True, null=True)
-
-    def __str__(self):
-        return f"{self.name}"
 
 
-# Category Model of a food
-
-class Category(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return f"{self.name}"
 
 
 

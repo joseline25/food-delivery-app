@@ -1,0 +1,37 @@
+{% extends "restaurant/base.html" %} {% block content %}
+
+<h1>{{ restaurant.name }}</h1>
+<h4>{{ restaurant.description }}</h4>
+<h4>{{ restaurant.rating }}</h4>
+<h4>{{ restaurant.location.name }}</h4>
+
+{% if restaurant.is_open %}
+    <p>Status: Open</p>
+{% else %}
+    <p>Status: Closed</p>
+{% endif %}
+
+<h1>{{ restaurant.name }} Opening Hours</h1>
+
+{% for opening_hour in opening_hours %}
+    <p>
+        <strong>{{ opening_hour.get_weekday_display }}:</strong>
+        {{ opening_hour.open_time|time:"H:i" }} -
+        {{ opening_hour.close_time|time:"H:i" }}
+    </p>
+{% empty %}
+    <p>No opening hours available.</p>
+{% endfor %}
+
+
+<h3>Set the Opening Hours</h3>
+<form method="post" action="">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">Save</button>
+
+</form>
+
+{% endblock content %}

@@ -20,7 +20,9 @@
           <h1>NDOCK</h1>
         </div>
         <div class="navbar-menu">
-          <a class="navbar-item" href="{% url 'restaurant:restaurant_list' %}">Add a Restaurant</a>
+          <a class="navbar-item" href="{% url 'restaurant:restaurant_list' %}"
+            >Add a Restaurant</a
+          >
           <a class="navbar-item" href="{% url 'restaurant:login' %}">Log in</a>
           <a class="navbar-item" href="{% url 'restaurant:signup' %}"
             >Sign Up</a
@@ -41,9 +43,21 @@
         <div class="container">
           <h1 class="title">Find the Best Restaurants Near You</h1>
           <div class="search-bar">
-            <input type="text" id="location" placeholder="Location" />
-            <input type="text" id="food" placeholder="Food or Cuisine" />
-            <button type="submit">Search</button>
+            <form action="{% url 'restaurant:search_restaurants' %}" method="GET">
+              <input
+                type="text"
+                id="location"
+                name="location"
+                placeholder="Location"
+              />
+              <input
+                type="text"
+                id="restaurant"
+                name="restaurant"
+                placeholder="Search by name, cuisine, or category"
+              />
+              <button type="submit">Search</button>
+            </form>
           </div>
         </div>
       </div>
@@ -53,16 +67,13 @@
 
     <section class="restaurants-section">
       <div class="container">
-      <ul>
-        {% for location in locations %}
-        <a href="{% url 'restaurant:base_location_restaurant' location.pk %}"><li>{{location.name}}</li></a>
-          
-          {% for restaurant in location.restaurants.all %}
-            {{ restaurant }}
+        <ul>
+          {% for location in locations %}
+          <a href="{% url 'restaurant:base_location_restaurant' location.pk %}"
+            ><li>{{location.name}}</li></a>
+
           {% endfor %}
-            
-        {% endfor %}
-      </ul>   
+        </ul>
       </div>
     </section>
 
@@ -79,18 +90,18 @@
               <li>Report Fraud</li>
             </ul>
           </div>
-          <div class="col align-self-center">Learn More
+          <div class="col align-self-center">
+            Learn More
             <ul>
               <li>Who We are</li>
               <li>Blog</li>
-              
             </ul>
           </div>
-          <div class="col align-self-end">Social Links
+          <div class="col align-self-end">
+            Social Links
 
             <ul>
               <li>Who We are</li>
-              
             </ul>
           </div>
         </div>
