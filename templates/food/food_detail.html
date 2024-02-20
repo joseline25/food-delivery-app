@@ -1,0 +1,26 @@
+{% extends "restaurant/base.html" %}
+{% load static %} 
+
+{% block content %}
+
+<h1>{{ food.name }}</h1>
+
+<p><strong>Description:</strong> {{ food.description }}</p>
+<p><strong>Price:</strong> {{ food.price }}</p>
+<p><strong>Number of People:</strong> {{ food.number_people }}</p>
+<p><strong>Ingredients:</strong>
+    {% if food.ingredients.all %}
+        {% for ingredient in food.ingredients.all %}
+            {{ ingredient.name }}
+            {% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    {% else %}
+        No Ingredients
+    {% endif %}
+</p>
+<p><strong>Categories:</strong> {{ food.categories }}</p>
+
+<a href="{% url 'food:food-update' food.pk %}">Edit</a>
+<a href="{% url 'food:food-delete' food.pk %}">Delete</a>
+
+{% endblock content %}

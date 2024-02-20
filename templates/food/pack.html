@@ -1,0 +1,18 @@
+{% extends "restaurant/base.html" %}
+{% load static %} 
+
+{% block content %}
+
+<h1>Food Page</h1>
+
+{% if packs %}
+  <ul>
+    {% for pack in packs %}
+      <li>{{ pack.name }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No pack available.</p>
+{% endif %}
+
+{% endblock content %}

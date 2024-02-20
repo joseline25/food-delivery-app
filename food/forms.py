@@ -1,5 +1,5 @@
 from django import forms
-from .models import Food
+from .models import Food, Pack
 
 class FoodForm(forms.ModelForm):
     class Meta:
@@ -13,5 +13,12 @@ class FoodForm(forms.ModelForm):
             'categories': forms.CheckboxSelectMultiple(),
             
         }
+        
+# Pack
+
+class PackForm(forms.ModelForm):
+    class Meta:
+        model=Pack
+        fields = '__all__'
         
         

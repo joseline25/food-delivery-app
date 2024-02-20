@@ -1,0 +1,27 @@
+{% extends "restaurant/base.html" %}
+{% load static %} 
+
+{% block content %}
+
+<h1>Confirm Delete: {{ food.name }}</h1>
+
+<p>Are you sure you want to delete the food item "{{ food.name }}"?</p>
+
+<p><strong>Details:</strong></p>
+
+<ul>
+  <li><strong>Name:</strong> {{ food.name }}</li>
+  <li><strong>Description:</strong> {{ food.description }}</li>
+  <li><strong>Price:</strong> {{ food.price }}</li>
+  <li><strong>Number of People:</strong> {{ food.number_people }}</li>
+  <li><strong>Ingredients:</strong> {{ food.ingredients }}</li>
+  <li><strong>Categories:</strong> {{ food.categories }}</li>
+</ul>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirm Delete</button>
+    <a href="{% url 'food:food_detail' food.pk %}">Cancel</a>
+</form>
+
+{% endblock content %}

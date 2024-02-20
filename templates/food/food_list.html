@@ -1,0 +1,26 @@
+{% extends "restaurant/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<h1>Foods List</h1>
+
+<ul>
+  {% for food in foods %}
+  <li><a href="{% url 'food:food-detail' food.pk %}">{{ food.name }}</a> with the ingredients {{ food.ingredients }}</li>
+  {% endfor %}
+</ul>
+<br/>
+<h1>Create a Food</h1>
+<form method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">Save</button>
+
+</form>
+
+
+{% endblock content %}
