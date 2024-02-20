@@ -35,10 +35,34 @@ class Restaurant(models.Model):
         opening_hours = self.opening_hours.filter(
             weekday=current_weekday).first()
 
-        if opening_hours and opening_hours.open_time <= now <= opening_hours.close_time:
-            return True
+        if opening_hours :
+            if opening_hours.open_time and opening_hours.open_time <= now <= opening_hours.close_time:
+                return True
 
         return False
+    
+    def average_rating(self):
+        # Calculate and return the average rating for the restaurant
+        ratings = self.rating
+        if ratings:
+            
+            return round(ratings, 2)
+        return None
+    
+    """ When having ratings from users 
+    
+        def get_average_rating(self):
+            # Calculate and return the average rating for the restaurant
+        ratings = self.reviews.values_list('rating', flat=True)
+        if ratings:
+            average_rating = sum(ratings) / len(ratings)
+            return round(average_rating, 2)
+        return None
+    """
+
+    # def latest_reviews(self, num_reviews=5):
+    #     # Retrieve the latest reviews for the restaurant
+    #     return self.reviews.order_by('-created_at')[:num_reviews]
 
 
 # to perform advanced search of restaurant using django-watson
@@ -98,6 +122,9 @@ class RestaurantFood():
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     food = models.ForeignKey(Food, on_delete=models.CASCADE)
     price = models.DecimalField()
+
+
+
 
 
 # Menu Model

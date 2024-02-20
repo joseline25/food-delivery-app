@@ -16,6 +16,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
 
 application = get_wsgi_application()
 
+
+
 # for geoloaction
 
 sys.path.append('C:/OSGeo4W/bin')
