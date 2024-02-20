@@ -41,13 +41,13 @@ INSTALLED_APPS = [
     # my apps
     'restaurant',
     'food',
-    'authentication',
+    #'authentication',
 
     # for search
     'watson',
 
     # for geolocation
-    'django.contrib.gis',
+    #'django.contrib.gis',
 ]
 
 MIDDLEWARE = [
@@ -84,32 +84,32 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'food_delivery',
-        'USER': 'postgres',
-        'PASSWORD': 'joseline',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
 
-GDAL_LIBRARY_PATH = 'C:/OSGeo4W/bin/gdal308.dll'
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.contrib.gis.db.backends.postgis',
+#         'NAME': 'food_delivery',
+#         'USER': 'postgres',
+#         'PASSWORD': 'joseline',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
+
+#GDAL_LIBRARY_PATH = 'C:/OSGeo4W/bin/gdal308.dll'
 
 
 # Configure Spatial Reference System (SRS)
-GEOGRAPHIC_ADMIN_SRID = 4326
+#GEOGRAPHIC_ADMIN_SRID = 4326
 
 """  
 Set the SRID (Spatial Reference ID) in your settings.py to match the desired 

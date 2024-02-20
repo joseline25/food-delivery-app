@@ -11,7 +11,7 @@ page_obj.has_other_pages %}
   <a href="?page={{ page_obj.next_page_number }}">Next</a>
   {% endif %}
 </div>
-{% endif %} {% if page_obj %}
+{% if page_obj %}
 <h2>Found Restaurants:</h2>
 <ul>
   {% for restaurant in page_obj %}
