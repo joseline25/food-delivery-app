@@ -1,18 +1,22 @@
-{% extends "restaurant/base.html" %}
-{% load static %} 
+{% extends "restaurant/base.html" %} {% load static %} {% block content %}
 
-{% block content %}
-
-<h1>Food Page</h1>
 
 {% if packs %}
-  <ul>
-    {% for pack in packs %}
-      <li>{{ pack.name }}</li>
-    {% endfor %}
-  </ul>
+<h1>Available Packs</h1>
+<ul>
+  {% for pack in packs %}
+  <li><a href="{% url 'food:pack-details' pack.id %}">{{ pack.name }}</a></li>
+  {% endfor %}
+</ul>
 {% else %}
-  <p>No pack available.</p>
+<p>No pack available.</p>
 {% endif %}
+
+<h1>Create a Pack</h1>
+<form method="post">
+  {% csrf_token %} {{ form.as_p }}
+
+  <button type="submit">Save</button>
+</form>
 
 {% endblock content %}

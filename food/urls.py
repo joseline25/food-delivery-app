@@ -13,5 +13,6 @@ urlpatterns = [
     path('foods/<int:pk>/delete/', views.FoodDeleteView.as_view(), name='food-delete'),
     
     # Pack
-    path('', views.PackView.as_view(), name='pack'),
+    path('', views.pack, name='pack'),
+    path('<int:id>/', views.pack_details, name='pack-details'),
 ]

@@ -50,6 +50,8 @@ class Category(models.Model):
 class Pack(models.Model):
     name= models.CharField(max_length=255)
     number_of_people = models.IntegerField()
+    foods=models.ManyToManyField(Food, related_name='packs')
+    categories = models.ManyToManyField(Category, related_name='packs_cat')
     
     def __str__(self):
         return f"{self.name} for {self.number_of_people}"

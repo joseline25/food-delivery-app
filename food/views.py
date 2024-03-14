@@ -82,21 +82,52 @@ class FoodDeleteView(DeleteView):
 # Pack
 
 
-class PackView(View):
-    template_name = 'food/pack.html'  
+def pack(request):
+    # get all the packs available
+    packs = Pack.objects.all()
+    # send an empty form
+    form = PackForm()
+    context = {'packs': packs, 'form': form}
+    if request.method == 'POST':
+        form = PackForm(request.POST)
+        if form.is_valid():
+            new_pack = form.save(commit=False)
+            new_pack.save()
+            # if 'foods' in form.cleaned_data:
+            #     new_pack.foods.set(form.cleaned_data['foods'])
+            # if 'categories' in form.cleaned_data:
+            #     new_pack.categories.set(form.cleaned_data['categories'])
+            return redirect('food:pack')  # redirect to the get()
+        else:
+            print(form.errors)
+            packs = Pack.objects.all()
+            print(packs)
+    return render(request, 'food/pack.html', context)
 
-    # get all packs available
+
+def pack_details(request, id):
+    pack = get_object_or_404(Pack, id=id)
+    return render(request, 'food/pack_details.html', {'pack': pack})
+
+
+class PackView(View):
+    template_name = 'food/pack.html'
+
+    # get all packs
     def get(self, request):
         packs = Pack.objects.all()
-        return render(request, self.template_name, {'packs': packs})
+        return render(request, self.template_name, {'packs': packs, 'form': PackForm()})
 
     # create a pack
     def post(self, request):
         form = PackForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('food:pack')
-        return render(request, self.template_name, {'form': form})
+            return redirect('food:pack')  # redirect to the get()
+        else:
+            packs = Pack.objects.all()
+            print(packs)
+            return render(request, self.template_name, {'form': form, 'packs': packs})
 
     # get the details of a pack
     def get_object(self, pk):

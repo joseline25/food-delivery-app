@@ -1,6 +1,7 @@
 from django import forms
 from .models import Food, Pack
 
+
 class FoodForm(forms.ModelForm):
     class Meta:
         model = Food
@@ -11,14 +12,17 @@ class FoodForm(forms.ModelForm):
             'price': forms.NumberInput(attrs={'class': 'form-control'}),
             'ingredients': forms.CheckboxSelectMultiple(),
             'categories': forms.CheckboxSelectMultiple(),
-            
+
         }
-        
+
 # Pack
+
 
 class PackForm(forms.ModelForm):
     class Meta:
-        model=Pack
-        fields = '__all__'
-        
-        
+        model = Pack
+        fields = ['name', 'number_of_people', 'foods', 'categories']
+        widgets = {
+            'foods': forms.CheckboxSelectMultiple(attrs={'placeholder': 'Foods in the pack', 'style': 'height: 100px;'}),
+            'categories': forms.CheckboxSelectMultiple(attrs={'placeholder': 'categories of the pack', 'style': 'height: 100px;'}),
+        }

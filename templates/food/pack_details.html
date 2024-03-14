@@ -1,0 +1,11 @@
+{% extends "restaurant/base.html" %} {% load static %} {% block content %}
+
+<h1>{{ pack.name }}</h1>
+
+<p><strong>For:</strong> {{ pack.number_of_people }}</p>
+
+
+{% comment %} <a href="{% url 'food:pack-update' food.pk %}">Edit</a>
+<a href="{% url 'food:pack-delete' food.pk %}">Delete</a> {% endcomment %}
+
+{% endblock content %}
